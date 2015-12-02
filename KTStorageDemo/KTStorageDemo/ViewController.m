@@ -23,16 +23,17 @@
     //[self userDefaultStorage];
     
     [self SQLite];
-
-    
-
-    
 }
 
 #pragma mark - SQLite
 - (void)SQLite {
+    
+    NSDictionary *dic = @{@"age" : @"123",
+                          @"name" : @"ppppp",
+                          @"agement" : @"789"};
     [[KTSQLite sharedModel] openDataBase];
-    [[KTSQLite sharedModel] creatTable:@"ttttt" PrimaryKey:@"id" TextColumn:@[@"name",@"age"] IntegerColumn:@[@"agement"]];
+    [[KTSQLite sharedModel] creatTable:@"mytable" PrimaryKey:@"id" TextColumn:@[@"name",@"age"] IntegerColumn:@[@"agement"]];
+    [[KTSQLite sharedModel] insertDataInTable:@"mytable" DataDictionary:dic];
 }
 
 

@@ -35,19 +35,37 @@
     }
 }
 
-
+#pragma mark - 新建表
 - (void)creatTable:(NSString *)tableName
         PrimaryKey:(NSString *)key
         TextColumn:(NSArray *)textColumnArray
      IntegerColumn:(NSArray *)integerColoumnArray
-
 {
     NSString *creatTableSQLStr = [self creatTableSQLtext:textColumnArray IntegerColumn:integerColoumnArray];
     NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@ INTEGER PRIMARY KEY AUTOINCREMENT, %@)",tableName,key,creatTableSQLStr];
     
-    NSLog(@"%@",sqlCreateTable);
     [self execSql:sqlCreateTable];
 }
+
+
+#pragma mark - 插入数据
+- (void)insertDataInTable:(NSString *)tableName DataDictionary:(NSDictionary *)data
+{
+    if (!data) {
+        return;
+    }
+    __block NSString *keyString = [[NSString alloc] init];
+    __block NSString *objString = [[NSString alloc] init];
+    [data enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        keyString = [keyString stringByAppendingString:[NSString stringWithFormat:@"'%@',",key]];
+        objString = [objString stringByAppendingString:[NSString stringWithFormat:@"'%@',",obj]];
+    }];
+    keyString = [keyString substringToIndex:[keyString length]-1];
+    objString = [objString substringToIndex:[objString length]-1];
+    NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@) VALUES (%@)",tableName,keyString,objString];
+    [self execSql:sql];
+}
+
 
 
 - (void)execSql:(NSString *)sql {
@@ -65,6 +83,7 @@
     NSArray *pathArray = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *pathString = pathArray[0];
     pathString = [pathString stringByAppendingString:[NSString stringWithFormat:@"%@.sqlite",tableName]];
+    NSLog(@"%@",pathString);
     return pathString;
 }
 

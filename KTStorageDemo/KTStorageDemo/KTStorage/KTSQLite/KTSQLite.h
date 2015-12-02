@@ -17,4 +17,5 @@
         TextColumn:(NSArray *)textColumnArray
      IntegerColumn:(NSArray *)integerColoumnArray;
 
+- (void)insertDataInTable:(NSString *)tableName DataDictionary:(NSDictionary *)data;
 @end
