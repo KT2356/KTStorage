@@ -33,7 +33,6 @@
 
     //read
     NSLog(@"UserStoredPlistFile: %@",[KTPlist readUserStoredPlistFile]);
-    
 }
 
 @end

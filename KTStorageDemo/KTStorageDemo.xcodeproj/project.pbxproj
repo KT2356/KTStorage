@@ -13,7 +13,7 @@
 		6822A1311C0E862B0002611F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6822A12F1C0E862B0002611F /* Main.storyboard */; };
 		6822A1331C0E862B0002611F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6822A1321C0E862B0002611F /* Assets.xcassets */; };
 		6822A1361C0E862B0002611F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6822A1341C0E862B0002611F /* LaunchScreen.storyboard */; };
-		6822A1441C0E8A190002611F /* KTPlist.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822A1431C0E8A190002611F /* KTPlist.m */; };
+		6822A1481C0E98F90002611F /* KTPlist.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822A1471C0E98F90002611F /* KTPlist.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,9 +27,9 @@
 		6822A1321C0E862B0002611F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6822A1351C0E862B0002611F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6822A1371C0E862B0002611F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6822A1421C0E8A190002611F /* KTPlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KTPlist.h; path = ../../../../KTPlist.h; sourceTree = "<group>"; };
-		6822A1431C0E8A190002611F /* KTPlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KTPlist.m; path = ../../../../KTPlist.m; sourceTree = "<group>"; };
 		6822A1451C0E8C010002611F /* KTStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KTStorage.h; sourceTree = "<group>"; };
+		6822A1461C0E98F90002611F /* KTPlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPlist.h; sourceTree = "<group>"; };
+		6822A1471C0E98F90002611F /* KTPlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPlist.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +108,8 @@
 		6822A1401C0E865B0002611F /* KTPlist */ = {
 			isa = PBXGroup;
 			children = (
-				6822A1421C0E8A190002611F /* KTPlist.h */,
-				6822A1431C0E8A190002611F /* KTPlist.m */,
+				6822A1461C0E98F90002611F /* KTPlist.h */,
+				6822A1471C0E98F90002611F /* KTPlist.m */,
 			);
 			path = KTPlist;
 			sourceTree = "<group>";
@@ -199,7 +199,7 @@
 				6822A12E1C0E862B0002611F /* ViewController.m in Sources */,
 				6822A12B1C0E862B0002611F /* AppDelegate.m in Sources */,
 				6822A1281C0E862B0002611F /* main.m in Sources */,
-				6822A1441C0E8A190002611F /* KTPlist.m in Sources */,
+				6822A1481C0E98F90002611F /* KTPlist.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
