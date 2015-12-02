@@ -10,6 +10,7 @@
 #define KTStorage_h
 
 #import "KTPlist.h"
+#import "KTUserDefault.h"
 
 #endif /* KTStorage_h */
 

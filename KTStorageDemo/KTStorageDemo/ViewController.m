@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "KTStorage.h"
 
+#import "Person.h"
 @interface ViewController ()
 
 @end
@@ -18,20 +19,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    [self plistStorage];
+    //[self plistStorage];
+    [self userDefaultStorage];
     
 }
+
+//UserDefault
+- (void)userDefaultStorage {
+    Person *person = [[Person alloc] init];
+    person.name = @"kt00";
+    person.age  = @"210";
+    person.isMan = YES;
+    NSArray *array = @[@"123",@"444",@"7891624564"];
+    NSDictionary *dic = @{@"a" : @"123",
+                          @"b" : @"456",
+                          @"c" : @"789"};
+    
+    [KTUserDefault setDictionary:dic forKey:@"dic"];
+    NSLog(@"dic %@",[KTUserDefault dictionaryForKey:@"dic"]);
+
+    
+    [KTUserDefault setArray:array forKey:@"array"];
+    NSLog(@"array %@",[KTUserDefault arrayForKey:@"array"]);
+    
+    [KTUserDefault setEncodeObject:person forKey:@"personList"];
+    NSLog(@"name %@",[[KTUserDefault decodeObjectForKey:@"personList"] valueForKey:@"name"]);
+    
+    [KTUserDefault setString:person.age forKey:@"age"];
+    NSLog(@"age %@",[KTUserDefault stringForKey:@"age"]);
+}
+
 
 //Plist
 - (void)plistStorage {
     NSDictionary *infoPlist = [KTPlist mainPlist];
     NSLog(@"info.plist.appname : %@",[infoPlist valueForKey:@"CFBundleName"]);
     
-    //store
     [KTPlist storeUserDefinedPlistFile:@{@"test":@"115032067417"}];
-
-    //read
     NSLog(@"UserStoredPlistFile: %@",[KTPlist readUserStoredPlistFile]);
 }
 
