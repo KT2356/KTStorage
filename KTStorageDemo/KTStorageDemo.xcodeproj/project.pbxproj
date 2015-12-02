@@ -16,6 +16,8 @@
 		6822A1481C0E98F90002611F /* KTPlist.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822A1471C0E98F90002611F /* KTPlist.m */; };
 		6822A1511C0ECD0C0002611F /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822A1501C0ECD0C0002611F /* Person.m */; };
 		6822A1541C0ECD200002611F /* KTUserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822A1531C0ECD200002611F /* KTUserDefault.m */; };
+		6822A1571C0ED2860002611F /* KTSQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822A1561C0ED2860002611F /* KTSQLite.m */; };
+		6822A1591C0EDDA10002611F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6822A1581C0EDDA10002611F /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,9 @@
 		6822A1501C0ECD0C0002611F /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		6822A1521C0ECD200002611F /* KTUserDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTUserDefault.h; sourceTree = "<group>"; };
 		6822A1531C0ECD200002611F /* KTUserDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTUserDefault.m; sourceTree = "<group>"; };
+		6822A1551C0ED2860002611F /* KTSQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSQLite.h; sourceTree = "<group>"; };
+		6822A1561C0ED2860002611F /* KTSQLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSQLite.m; sourceTree = "<group>"; };
+		6822A1581C0EDDA10002611F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6822A1591C0EDDA10002611F /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +58,7 @@
 		6822A11A1C0E862B0002611F = {
 			isa = PBXGroup;
 			children = (
+				6822A1581C0EDDA10002611F /* libsqlite3.tbd */,
 				6822A1251C0E862B0002611F /* KTStorageDemo */,
 				6822A1241C0E862B0002611F /* Products */,
 			);
@@ -102,6 +109,8 @@
 		6822A13E1C0E86410002611F /* KTSQLite */ = {
 			isa = PBXGroup;
 			children = (
+				6822A1551C0ED2860002611F /* KTSQLite.h */,
+				6822A1561C0ED2860002611F /* KTSQLite.m */,
 			);
 			path = KTSQLite;
 			sourceTree = "<group>";
@@ -170,7 +179,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6822A11E1C0E862B0002611F /* Build configuration list for PBXProject "ktstoragedemo" */;
+			buildConfigurationList = 6822A11E1C0E862B0002611F /* Build configuration list for PBXProject "KTStorageDemo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -207,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6822A12E1C0E862B0002611F /* ViewController.m in Sources */,
+				6822A1571C0ED2860002611F /* KTSQLite.m in Sources */,
 				6822A1541C0ECD200002611F /* KTUserDefault.m in Sources */,
 				6822A12B1C0E862B0002611F /* AppDelegate.m in Sources */,
 				6822A1511C0ECD0C0002611F /* Person.m in Sources */,
@@ -344,7 +354,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6822A11E1C0E862B0002611F /* Build configuration list for PBXProject "ktstoragedemo" */ = {
+		6822A11E1C0E862B0002611F /* Build configuration list for PBXProject "KTStorageDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6822A1381C0E862B0002611F /* Debug */,

@@ -11,6 +11,7 @@
 
 #import "KTPlist.h"
 #import "KTUserDefault.h"
+#import "KTSQLite.h"
 
 #endif /* KTStorage_h */
 

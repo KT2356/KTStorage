@@ -20,11 +20,25 @@
     [super viewDidLoad];
     
     //[self plistStorage];
-    [self userDefaultStorage];
+    //[self userDefaultStorage];
+    
+    [self SQLite];
+
+    
+
     
 }
 
-//UserDefault
+#pragma mark - SQLite
+- (void)SQLite {
+    [[KTSQLite sharedModel] openDataBase];
+    [[KTSQLite sharedModel] creatTable:@"ttttt" PrimaryKey:@"id" TextColumn:@[@"name",@"age"] IntegerColumn:@[@"agement"]];
+}
+
+
+
+
+#pragma mark - UserDefault
 - (void)userDefaultStorage {
     Person *person = [[Person alloc] init];
     person.name = @"kt00";
@@ -50,7 +64,7 @@
 }
 
 
-//Plist
+#pragma mark - Plist
 - (void)plistStorage {
     NSDictionary *infoPlist = [KTPlist mainPlist];
     NSLog(@"info.plist.appname : %@",[infoPlist valueForKey:@"CFBundleName"]);
