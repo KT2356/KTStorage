@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "KTStorage.h"
 
 @interface ViewController ()
 
@@ -16,12 +17,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    [self plistStorage];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+//Plist
+- (void)plistStorage {
+    NSDictionary *infoPlist = [KTPlist mainPlist];
+    NSLog(@"info.plist.appname : %@",[infoPlist valueForKey:@"CFBundleName"]);
+    
+    //store
+    [KTPlist storeUserDefinedPlistFile:@{@"test":@"115032067417"}];
+
+    //read
+    NSLog(@"UserStoredPlistFile: %@",[KTPlist readUserStoredPlistFile]);
+    
 }
 
 @end
