@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 @interface KTSQLite : NSObject
-+ (instancetype)sharedModel ;
+
++ (instancetype)sharedModel;
 
 - (void)openDataBase;
 
@@ -17,5 +18,10 @@
         TextColumn:(NSArray *)textColumnArray
      IntegerColumn:(NSArray *)integerColoumnArray;
 
-- (void)insertDataInTable:(NSString *)tableName DataDictionary:(NSDictionary *)data;
+- (void)insertDataInTable:(NSString *)tableName
+           DataDictionary:(NSDictionary *)data;
+
+- (NSInteger)getItemCountOfTable:(NSString *)tableName;
+- (NSArray *)getColumnName:(NSString *)tableName;
+
 @end

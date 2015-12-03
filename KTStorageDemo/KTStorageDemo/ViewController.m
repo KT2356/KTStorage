@@ -27,13 +27,17 @@
 
 #pragma mark - SQLite
 - (void)SQLite {
-    
-    NSDictionary *dic = @{@"age" : @"123",
-                          @"name" : @"ppppp",
-                          @"agement" : @"789"};
     [[KTSQLite sharedModel] openDataBase];
     [[KTSQLite sharedModel] creatTable:@"mytable" PrimaryKey:@"id" TextColumn:@[@"name",@"age"] IntegerColumn:@[@"agement"]];
-    [[KTSQLite sharedModel] insertDataInTable:@"mytable" DataDictionary:dic];
+    
+    NSArray *columnArray = [[KTSQLite sharedModel] getColumnName:@"mytable"];
+    NSDictionary *dic = @{columnArray[1] : @"00",
+                          columnArray[2] : @"test",
+                          columnArray[3] : @"1"};
+    
+   // [[KTSQLite sharedModel] insertDataInTable:@"mytable" DataDictionary:dic];
+    NSLog(@"count : %ld",(long)[[KTSQLite sharedModel] getItemCountOfTable:@"mytable"]);
+    NSLog(@"itemName : %@",columnArray) ;
 }
 
 
