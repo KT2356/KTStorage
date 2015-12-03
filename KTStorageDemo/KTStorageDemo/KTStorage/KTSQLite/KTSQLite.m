@@ -53,7 +53,8 @@
 }
 
 //table插入数据
-- (void)insertDataInTable:(NSString *)tableName DataDictionary:(NSDictionary *)data
+- (void)insertDataInTable:(NSString *)tableName
+           DataDictionary:(NSDictionary *)data
 {
     if (!data) {
         return;
@@ -123,7 +124,9 @@
 }
 
 //全字段搜索，返回ID 数组
-- (NSArray *)searchTable:(NSString *)tableName SearchString:(NSString *)searchString {
+- (NSArray *)searchTable:(NSString *)tableName
+            SearchString:(NSString *)searchString
+{
     NSMutableArray *resultArray = [@[] mutableCopy];
     NSString *selectItemStr = [[NSString alloc] init];
     NSArray *colunmArray = @[];
@@ -150,7 +153,10 @@
 }
 
 //指定字段搜索
-- (NSArray *)searchTable:(NSString *)tableName ColumnName:(NSString *)columnText SearchString:(NSString *)searchString {
+- (NSArray *)searchTable:(NSString *)tableName
+              ColumnName:(NSString *)columnText
+            SearchString:(NSString *)searchString
+{
     NSMutableArray *resultArray = [@[] mutableCopy];
     NSString *selectItemStr = [[NSString alloc] init];
     NSArray *colunmArray = @[];
@@ -175,7 +181,9 @@
 
 
 //由主键找到数据
-- (NSDictionary *)findDataInTable:(NSString *)tableName WithID:(NSInteger)contentID {
+- (NSDictionary *)findDataInTable:(NSString *)tableName
+                           WithID:(NSInteger)contentID
+{
     NSArray *colunmArray = @[];
     __block NSMutableDictionary *resultDic = [@{} mutableCopy];
     colunmArray = [self getColumnName:tableName];
@@ -204,7 +212,9 @@
 }
 
 // 由主键删除数据
-- (BOOL)deleteDataINTable:(NSString *)tableName WithID: (NSInteger)contentID {
+- (BOOL)deleteDataINTable:(NSString *)tableName
+                   WithID: (NSInteger)contentID
+{
     if (![self findDataInTable:tableName WithID:contentID]) {
         return NO ;
     };
@@ -227,8 +237,20 @@
     return returnValue;
 }
 
+//清空表
+- (void)emptyTable:(NSString *)tableName {
+    NSArray *allItem = [self getAllItemIDInTable:tableName];
+    for (id index in allItem) {
+        NSInteger contentID = [index integerValue];
+        [self deleteDataINTable:tableName WithID:contentID];
+    }
+}
+
 //跟新已存在数据
-- (void)updateItemInTable:(NSString *)tableName WithID:(NSInteger)contentID updateDictionary:(NSDictionary *)updateDic {
+- (void)updateItemInTable:(NSString *)tableName
+                   WithID:(NSInteger)contentID
+         updateDictionary:(NSDictionary *)updateDic
+{
     if (![self findDataInTable:tableName WithID:contentID]) {
         return;
     };
@@ -264,7 +286,10 @@
 
 #pragma mark - private methods
 //Search SQL
-- (void)searchSQL:(NSString *)sql success:(void(^)(sqlite3_stmt * statement))successBlock failed:(void(^)(NSInteger state))failedBlock {
+- (void)searchSQL:(NSString *)sql
+          success:(void(^)(sqlite3_stmt * statement))successBlock
+           failed:(void(^)(NSInteger state))failedBlock
+{
     sqlite3_stmt * statement;
     NSInteger state = sqlite3_prepare_v2(db, [sql UTF8String], -1, &statement, nil);
     if (state == SQLITE_OK) {
@@ -274,9 +299,11 @@
     }
 }
 
-
 //SQL执行语句 回调状态
-- (void)execSql:(NSString *)sql success:(void(^)())successBlock failed:(void(^)(NSInteger state,char *msg))failedBlock {
+- (void)execSql:(NSString *)sql
+        success:(void(^)())successBlock
+         failed:(void(^)(NSInteger state,char *msg))failedBlock
+{
     char *err;
     NSInteger state = sqlite3_exec(db, [sql UTF8String], NULL, NULL, &err);
     if (state == 0) {
@@ -297,7 +324,9 @@
 }
 
 //建表 SQL 语句生成
-- (NSString *)creatTableSQLtext:(NSArray *)textColumnArray IntegerColumn:(NSArray *)integerColoumnArray {
+- (NSString *)creatTableSQLtext:(NSArray *)textColumnArray
+                  IntegerColumn:(NSArray *)integerColoumnArray
+{
     NSString *outString = [[NSString alloc] init];
     for (int i = 0; i < textColumnArray.count; i ++) {
         NSString *type = [NSString stringWithFormat:@"%@ TEXT,",textColumnArray[i]];

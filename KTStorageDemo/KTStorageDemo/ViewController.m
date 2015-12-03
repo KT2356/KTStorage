@@ -28,33 +28,48 @@
 
 #pragma mark - SQLite
 - (void)SQLite {
+    //打开数据库，建表
     [[KTSQLite sharedModel] openDataBase];
     [[KTSQLite sharedModel] creatTable:tempTableName PrimaryKey:@"id" TextColumn:@[@"name",@"age"] IntegerColumn:@[@"agement"]];
-    
+    //获取表列名
     NSArray *columnArray = [[KTSQLite sharedModel] getColumnName:tempTableName];
-    NSDictionary *dic = @{columnArray[1] : @"00",
-                          columnArray[2] : @"z",
+    NSLog(@"columnArrayName : %@",columnArray) ;
+    
+    //插入数据
+    NSDictionary *dic = @{columnArray[1] : @"kid",
+                          columnArray[2] : @"kp",
                           columnArray[3] : @"1"};
     
-   // [[KTSQLite sharedModel] insertDataInTable:tempTableName DataDictionary:dic];
-    //NSLog(@"count : %ld",(long)[[KTSQLite sharedModel] getItemCountOfTable:tempTableName]);
-    //NSLog(@"itemName : %@",columnArray) ;
+    [[KTSQLite sharedModel] insertDataInTable:tempTableName DataDictionary:dic];
     
-    //NSArray *searchResult = [[KTSQLite sharedModel] searchTable:tempTableName SearchString:@"kt"];
-   // NSLog(@"searchResult %@",searchResult);
+    //获取数据总量
+    NSLog(@"Tablecount : %ld",(long)[[KTSQLite sharedModel] getItemCountOfTable:tempTableName]);
+    //获取全部ID
+    NSArray *allitem = [[KTSQLite sharedModel] getAllItemIDInTable:tempTableName];
+    NSLog(@"%@",allitem);
     
-    //[[KTSQLite sharedModel] deleteDataINTable:tempTableName WithID:8];
-//   NSDictionary *dict = [[KTSQLite sharedModel] findDataInTable:tempTableName WithID:36];
-//    NSLog(@"%@",dict);
+    //全表模糊查询
+    NSArray *searchResult = [[KTSQLite sharedModel] searchTable:tempTableName SearchString:@"kt"];
+    NSLog(@"searchResultInAllTable %@",searchResult);
+    //指定字段查询
+    NSArray *resluts = [[KTSQLite sharedModel] searchTable:tempTableName ColumnName:@"name" SearchString:@"KID"];
+    NSLog(@"%@",resluts);
     
-//    NSArray *allitem = [[KTSQLite sharedModel] getAllItemIDInTable:tempTableName];
-//    NSLog(@"%@",allitem);
+    //删除指定数据
+    [[KTSQLite sharedModel] deleteDataINTable:tempTableName WithID:1];
+    //清空全部数据
+    //[[KTSQLite sharedModel] emptyTable:tempTableName];
+    
+    //由ID找到唯一数据
+     NSDictionary *dict = [[KTSQLite sharedModel] findDataInTable:tempTableName WithID:1];
+     NSLog(@"find Data Reault%@",dict);
+    
+    
+    //跟新数据
     NSDictionary *updateDic = @{columnArray[1] : @"kid",
                                 columnArray[2] : @"kid",
                                 columnArray[3] : @"kid"};
-//    [[KTSQLite sharedModel] updateItemInTable:tempTableName WithID:3 updateDictionary:updateDic];
-    NSArray *resluts = [[KTSQLite sharedModel] searchTable:tempTableName ColumnName:@"name" SearchString:@"KID"];
-    NSLog(@"%@",resluts);
+    [[KTSQLite sharedModel] updateItemInTable:tempTableName WithID:1 updateDictionary:updateDic];
 }
 
 
