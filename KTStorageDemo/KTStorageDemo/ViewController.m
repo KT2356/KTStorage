@@ -5,7 +5,7 @@
 //  Created by KT on 15/12/2.
 //  Copyright © 2015年 KT. All rights reserved.
 //
-#define tempTableName @"mytable"
+#define tempTableName @"mytablepp"
 
 #import "ViewController.h"
 #import "KTStorage.h"
@@ -37,8 +37,8 @@
     
     //插入数据
     NSDictionary *dic = @{columnArray[1] : @"kid",
-                          columnArray[2] : @"kp",
-                          columnArray[3] : @"1"};
+                          columnArray[2] : @"kt",
+                          columnArray[3] : @"123"};
     
     [[KTSQLite sharedModel] insertDataInTable:tempTableName DataDictionary:dic];
     
@@ -49,14 +49,14 @@
     NSLog(@"%@",allitem);
     
     //全表模糊查询
-    NSArray *searchResult = [[KTSQLite sharedModel] searchTable:tempTableName SearchString:@"kt"];
+    NSArray *searchResult = [[KTSQLite sharedModel] searchTable:tempTableName SearchString:@"k"];
     NSLog(@"searchResultInAllTable %@",searchResult);
     //指定字段查询
     NSArray *resluts = [[KTSQLite sharedModel] searchTable:tempTableName ColumnName:@"name" SearchString:@"KID"];
     NSLog(@"%@",resluts);
     
     //删除指定数据
-    [[KTSQLite sharedModel] deleteDataINTable:tempTableName WithID:1];
+    //[[KTSQLite sharedModel] deleteDataINTable:tempTableName WithID:1];
     //清空全部数据
     //[[KTSQLite sharedModel] emptyTable:tempTableName];
     
@@ -70,6 +70,9 @@
                                 columnArray[2] : @"kid",
                                 columnArray[3] : @"kid"};
     [[KTSQLite sharedModel] updateItemInTable:tempTableName WithID:1 updateDictionary:updateDic];
+    
+    //关闭数据库
+    [[KTSQLite sharedModel] shutDownDataBase];
 }
 
 

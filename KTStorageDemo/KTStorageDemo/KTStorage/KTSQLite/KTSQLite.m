@@ -13,6 +13,7 @@
 @interface KTSQLite()
 {
     sqlite3 *db;
+    sqlite3_stmt * _statement;
 }
 @end
 
@@ -34,6 +35,12 @@
     if (sqlite3_open([pathString UTF8String], &db) != SQLITE_OK) {
         NSLog(@"数据库打开失败");
     }
+}
+
+//关闭数据库
+- (void)shutDownDataBase {
+    sqlite3_finalize(_statement);
+    sqlite3_close(db);
 }
 
 //新建table
@@ -107,14 +114,13 @@
 
 //获取列名
 - (NSArray *)getColumnName:(NSString *)tableName {
-    sqlite3_stmt * statement;
     NSMutableArray *columnArray = [@[] mutableCopy];
      NSString *sqlQuery = [NSString stringWithFormat:@"SELECT * FROM %@",tableName] ;
-    NSInteger state = sqlite3_prepare_v2(db, [sqlQuery UTF8String], -1, &statement, nil);
+    NSInteger state = sqlite3_prepare_v2(db, [sqlQuery UTF8String], -1, &_statement, nil);
     if (state == SQLITE_OK) {
-        int t =  sqlite3_column_count(statement);
+        int t =  sqlite3_column_count(_statement);
         for (int i = 0 ; i < t; i ++) {
-            NSString *columnName = [NSString stringWithUTF8String:sqlite3_column_name(statement, i)];
+            NSString *columnName = [NSString stringWithUTF8String:sqlite3_column_name(_statement, i)];
             [columnArray addObject:columnName];
         }
     } else {
@@ -290,10 +296,9 @@
           success:(void(^)(sqlite3_stmt * statement))successBlock
            failed:(void(^)(NSInteger state))failedBlock
 {
-    sqlite3_stmt * statement;
-    NSInteger state = sqlite3_prepare_v2(db, [sql UTF8String], -1, &statement, nil);
+    NSInteger state = sqlite3_prepare_v2(db, [sql UTF8String], -1, &_statement, nil);
     if (state == SQLITE_OK) {
-        successBlock(statement);
+        successBlock(_statement);
     } else {
         failedBlock(state);
     }

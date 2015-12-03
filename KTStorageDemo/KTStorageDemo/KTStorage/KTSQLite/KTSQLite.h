@@ -13,6 +13,9 @@
 
 //打开数据库
 - (void)openDataBase ;
+//关闭数据库
+- (void)shutDownDataBase;
+
 //新建table
 - (void)creatTable:(NSString *)tableName
         PrimaryKey:(NSString *)key
