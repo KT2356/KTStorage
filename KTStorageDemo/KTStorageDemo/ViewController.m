@@ -5,6 +5,7 @@
 //  Created by KT on 15/12/2.
 //  Copyright © 2015年 KT. All rights reserved.
 //
+#define tempTableName @"mytable"
 
 #import "ViewController.h"
 #import "KTStorage.h"
@@ -28,18 +29,33 @@
 #pragma mark - SQLite
 - (void)SQLite {
     [[KTSQLite sharedModel] openDataBase];
-    [[KTSQLite sharedModel] creatTable:@"mytable" PrimaryKey:@"id" TextColumn:@[@"name",@"age"] IntegerColumn:@[@"agement"]];
+    [[KTSQLite sharedModel] creatTable:tempTableName PrimaryKey:@"id" TextColumn:@[@"name",@"age"] IntegerColumn:@[@"agement"]];
     
-    NSArray *columnArray = [[KTSQLite sharedModel] getColumnName:@"mytable"];
+    NSArray *columnArray = [[KTSQLite sharedModel] getColumnName:tempTableName];
     NSDictionary *dic = @{columnArray[1] : @"00",
-                          columnArray[2] : @"test",
+                          columnArray[2] : @"z",
                           columnArray[3] : @"1"};
     
-   // [[KTSQLite sharedModel] insertDataInTable:@"mytable" DataDictionary:dic];
-    NSLog(@"count : %ld",(long)[[KTSQLite sharedModel] getItemCountOfTable:@"mytable"]);
-    NSLog(@"itemName : %@",columnArray) ;
+   // [[KTSQLite sharedModel] insertDataInTable:tempTableName DataDictionary:dic];
+    //NSLog(@"count : %ld",(long)[[KTSQLite sharedModel] getItemCountOfTable:tempTableName]);
+    //NSLog(@"itemName : %@",columnArray) ;
+    
+    //NSArray *searchResult = [[KTSQLite sharedModel] searchTable:tempTableName SearchString:@"kt"];
+   // NSLog(@"searchResult %@",searchResult);
+    
+    //[[KTSQLite sharedModel] deleteDataINTable:tempTableName WithID:8];
+//   NSDictionary *dict = [[KTSQLite sharedModel] findDataInTable:tempTableName WithID:36];
+//    NSLog(@"%@",dict);
+    
+//    NSArray *allitem = [[KTSQLite sharedModel] getAllItemIDInTable:tempTableName];
+//    NSLog(@"%@",allitem);
+    NSDictionary *updateDic = @{columnArray[1] : @"kid",
+                                columnArray[2] : @"kid",
+                                columnArray[3] : @"kid"};
+//    [[KTSQLite sharedModel] updateItemInTable:tempTableName WithID:3 updateDictionary:updateDic];
+    NSArray *resluts = [[KTSQLite sharedModel] searchTable:tempTableName ColumnName:@"name" SearchString:@"KID"];
+    NSLog(@"%@",resluts);
 }
-
 
 
 

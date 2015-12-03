@@ -24,4 +24,11 @@
 - (NSInteger)getItemCountOfTable:(NSString *)tableName;
 - (NSArray *)getColumnName:(NSString *)tableName;
 
+- (NSArray *)searchTable:(NSString *)tableName SearchString:(NSString *)searchString;
+- (BOOL)deleteDataINTable:(NSString *)tableName WithID: (NSInteger)contentID;
+- (NSDictionary *)findDataInTable:(NSString *)tableName WithID:(NSInteger)contentID;
+- (NSArray *)getAllItemIDInTable:(NSString *)tableName;
+- (void)updateItemInTable:(NSString *)tableName WithID:(NSInteger)contentID updateDictionary:(NSDictionary *)updateDic;
+- (NSArray *)searchTable:(NSString *)tableName ColumnName:(NSString *)columnText SearchString:(NSString *)searchString;
+
 @end

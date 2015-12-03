@@ -79,11 +79,29 @@
    __block NSInteger count = 0;
     NSString *sqlQuery = [NSString stringWithFormat:@"SELECT * FROM %@",tableName] ;
     [self searchSQL:sqlQuery success:^(sqlite3_stmt *statement) {
-        count = count +1;
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            count = count +1;
+        }
     } failed:^(NSInteger state) {
         NSLog(@"SQL ItemCount Error - state:%ld",(long)state);
     }];
     return count;
+}
+
+//返回表中数据全部ID Array
+- (NSArray *)getAllItemIDInTable:(NSString *)tableName {
+    NSMutableArray *resultArray = [@[] mutableCopy];
+    
+    NSString *SQLString = [NSString stringWithFormat:@"SELECT * FROM %@ ",tableName];
+    [self searchSQL:SQLString success:^(sqlite3_stmt *statement) {
+        while (sqlite3_step(statement) == SQLITE_ROW){
+            NSString *idString = [[NSString alloc]initWithUTF8String:(char*)sqlite3_column_text(statement, 0)];
+            [resultArray addObject:idString];
+        }
+    } failed:^(NSInteger state) {
+        NSLog(@"SQL getAllItemId Error - state:%ld",(long)state);
+    }];
+    return [NSArray arrayWithArray:resultArray];
 }
 
 //获取列名
@@ -104,26 +122,144 @@
     return [NSArray arrayWithArray:columnArray];
 }
 
-
+//全字段搜索，返回ID 数组
 - (NSArray *)searchTable:(NSString *)tableName SearchString:(NSString *)searchString {
     NSMutableArray *resultArray = [@[] mutableCopy];
+    NSString *selectItemStr = [[NSString alloc] init];
+    NSArray *colunmArray = @[];
     
+    colunmArray = [self getColumnName:tableName];
+    for (int i = 1; i < colunmArray.count; i ++) {
+        NSString *tempStr = [NSString stringWithFormat:@"%@ LIKE  '%%%@%%' or ",colunmArray[i],searchString];
+        selectItemStr = [selectItemStr stringByAppendingString:tempStr];
+    }
+    if (selectItemStr.length > 3) {
+        selectItemStr = [selectItemStr substringToIndex:selectItemStr.length - 3];
+    }
     
-    NSString *SQLString = [NSString stringWithFormat:@"SELECT * FROM %@ where contentNAME LIKE  '%%%@%%' or contentMOBILETEL LIKE  '%%%@%%' or  contentHOMETEL LIKE  '%%%@%%' or  contentGROUP LIKE  '%%%@%%'  or contentADDRESS LIKE  '%%%@%%' or contentREMARK  LIKE  '%%%@%%'",tableName];
-    
-    
+    NSString *SQLString = [NSString stringWithFormat:@"SELECT * FROM %@ where %@",tableName,selectItemStr];
+    [self searchSQL:SQLString success:^(sqlite3_stmt *statement) {
+        while (sqlite3_step(statement) == SQLITE_ROW){
+            NSString *idString = [[NSString alloc]initWithUTF8String:(char*)sqlite3_column_text(statement, 0)];
+            [resultArray addObject:idString];
+        }
+    } failed:^(NSInteger state) {
+        NSLog(@"SQL search Error - state:%ld",(long)state);
+    }];
     return [NSArray arrayWithArray:resultArray];
 }
 
-- (NSString *)searchSQLGenerate:(NSString *)tableName SearchString:(NSString *)searchStr {
-    NSString *result;
-    NSArray *colunmArray = [self getColumnName:tableName];
-    for (int i = 1; i < colunmArray.count; i ++) {
-        NSString *tempStr = [NSString stringWithFormat:@""];
+//指定字段搜索
+- (NSArray *)searchTable:(NSString *)tableName ColumnName:(NSString *)columnText SearchString:(NSString *)searchString {
+    NSMutableArray *resultArray = [@[] mutableCopy];
+    NSString *selectItemStr = [[NSString alloc] init];
+    NSArray *colunmArray = @[];
+    colunmArray = [self getColumnName:tableName];
+    if (![colunmArray containsObject:columnText]) {
+        NSLog(@"No exist column name");
+        return nil;
+    }
+    selectItemStr = [NSString stringWithFormat:@"%@ LIKE  '%%%@%%'",columnText,searchString];
+    
+    NSString *SQLString = [NSString stringWithFormat:@"SELECT * FROM %@ where %@",tableName,selectItemStr];
+    [self searchSQL:SQLString success:^(sqlite3_stmt *statement) {
+        while (sqlite3_step(statement) == SQLITE_ROW){
+            NSString *idString = [[NSString alloc]initWithUTF8String:(char*)sqlite3_column_text(statement, 0)];
+            [resultArray addObject:idString];
+        }
+    } failed:^(NSInteger state) {
+        NSLog(@"SQL search Error - state:%ld",(long)state);
+    }];
+    return [NSArray arrayWithArray:resultArray];
+}
+
+
+//由主键找到数据
+- (NSDictionary *)findDataInTable:(NSString *)tableName WithID:(NSInteger)contentID {
+    NSArray *colunmArray = @[];
+    __block NSMutableDictionary *resultDic = [@{} mutableCopy];
+    colunmArray = [self getColumnName:tableName];
+    
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ where %@ = '%ld'",tableName,colunmArray[0],(long)contentID];
+    [self searchSQL:sql  success:^(sqlite3_stmt *statement) {
+        NSInteger state = sqlite3_step(statement);
+        if (state == SQLITE_ROW) {
+            NSLog(@"find data");
+            for (int i = 0; i < colunmArray.count; i++) {
+                if ((char*)sqlite3_column_text(statement, i)) {
+                    [resultDic setObject:[[NSString alloc]initWithUTF8String:(char*)sqlite3_column_text(statement, i)] forKey:colunmArray[i]];
+                } else {
+                   [resultDic setObject:@"" forKey:colunmArray[i]];
+                }
+            }
+        }
+        if (state == SQLITE_DONE) {
+            resultDic = nil;
+            NSLog(@"---no exist data----with ID :%ld",(long)contentID);
+        }
+    } failed:^(NSInteger state) {
+        NSLog(@"SQL findData Error - state:%ld",(long)state);
+    }];
+    return resultDic ? [NSDictionary dictionaryWithDictionary:resultDic] : nil;
+}
+
+// 由主键删除数据
+- (BOOL)deleteDataINTable:(NSString *)tableName WithID: (NSInteger)contentID {
+    if (![self findDataInTable:tableName WithID:contentID]) {
+        return NO ;
+    };
+    NSArray *colunmArray = @[];
+    colunmArray = [self getColumnName:tableName];
+   __block BOOL returnValue;
+    
+    NSString *sql = [NSString stringWithFormat:@"delete FROM %@ where %@ = '%ld'",tableName,colunmArray[0],(long)contentID];
+    [self searchSQL:sql  success:^(sqlite3_stmt *statement) {
+        if (sqlite3_step(statement) == SQLITE_DONE) {
+            returnValue = YES;
+            NSLog(@"delete data");
+        } else {
+            returnValue = NO;
+        }
+    } failed:^(NSInteger state) {
+        returnValue = NO;
+        NSLog(@"SQL delete Error - state:%ld",(long)state);
+    }];
+    return returnValue;
+}
+
+//跟新已存在数据
+- (void)updateItemInTable:(NSString *)tableName WithID:(NSInteger)contentID updateDictionary:(NSDictionary *)updateDic {
+    if (![self findDataInTable:tableName WithID:contentID]) {
+        return;
+    };
+    NSArray *colunmArray = @[];
+    __block NSString *sqlString = [[NSString alloc] init];
+    colunmArray = [self getColumnName:tableName];
+    
+    [updateDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([colunmArray containsObject:key]) {
+            sqlString = [sqlString stringByAppendingString:[NSString stringWithFormat:@"%@ = '%@' ,",key,obj]];
+        }
+    }];
+    if (sqlString.length > 2) {
+        sqlString = [sqlString substringToIndex:sqlString.length -2];
     }
     
-    return result;
+    NSString *sqpQuery = [NSString stringWithFormat:
+                          @"update  %@ set %@ where %@ = '%ld'" ,tableName, sqlString ,colunmArray[0],(long)contentID];
+    
+    [self searchSQL:sqpQuery success:^(sqlite3_stmt *statement) {
+        if (sqlite3_step(statement) == SQLITE_DONE) {
+            NSLog(@"update data");
+        } else {
+             NSLog(@"update Error");
+        }
+
+    } failed:^(NSInteger state) {
+        NSLog(@"SQL update Error - state:%ld",(long)state);
+    }];
 }
+
 
 
 #pragma mark - private methods
@@ -132,9 +268,7 @@
     sqlite3_stmt * statement;
     NSInteger state = sqlite3_prepare_v2(db, [sql UTF8String], -1, &statement, nil);
     if (state == SQLITE_OK) {
-        while (sqlite3_step(statement) == SQLITE_ROW) {
-            successBlock(statement);
-        }
+        successBlock(statement);
     } else {
         failedBlock(state);
     }
