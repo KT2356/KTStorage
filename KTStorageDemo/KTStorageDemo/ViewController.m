@@ -9,7 +9,7 @@
 
 #import "ViewController.h"
 #import "KTStorage.h"
-
+#import "KTCoreData.h"
 #import "Person.h"
 @interface ViewController ()
 
@@ -22,8 +22,24 @@
     
     //[self plistStorage];
     //[self userDefaultStorage];
+    //[self SQLite];
+      [self CoreData];
+}
+
+#pragma mark - Core Data
+- (void)CoreData {
+    KTCoreData *ktCoreData = [[KTCoreData alloc] initWithModelName:@"KTCoreData"];
     
-    [self SQLite];
+    NSManagedObject *test = [ktCoreData getManagedObjectWithEntityName:@"CorePerson"];
+    [test setValue:@"kt111" forKey:@"name"];
+    
+    
+    NSError *error = nil;
+    BOOL success = [ktCoreData.managedObjectContext save:&error];
+    if (!success) {
+        [NSException raise:@"访问数据库错误" format:@"%@", [error localizedDescription]];
+    }
+    
 }
 
 #pragma mark - SQLite

@@ -18,6 +18,7 @@
 		6822A1541C0ECD200002611F /* KTUserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822A1531C0ECD200002611F /* KTUserDefault.m */; };
 		6822A1571C0ED2860002611F /* KTSQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822A1561C0ED2860002611F /* KTSQLite.m */; };
 		6822A1591C0EDDA10002611F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6822A1581C0EDDA10002611F /* libsqlite3.tbd */; };
+		6824FE5C1C1E5CED0073C727 /* KTCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6824FE5A1C1E5CED0073C727 /* KTCoreData.xcdatamodeld */; };
 		68A4A2491C102E170046290A /* KTCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A4A2481C102E170046290A /* KTCoreData.m */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +43,7 @@
 		6822A1551C0ED2860002611F /* KTSQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTSQLite.h; sourceTree = "<group>"; };
 		6822A1561C0ED2860002611F /* KTSQLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSQLite.m; sourceTree = "<group>"; };
 		6822A1581C0EDDA10002611F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		6824FE5B1C1E5CED0073C727 /* KTCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KTCoreData.xcdatamodel; sourceTree = "<group>"; };
 		68A4A2471C102E170046290A /* KTCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTCoreData.h; sourceTree = "<group>"; };
 		68A4A2481C102E170046290A /* KTCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTCoreData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +109,7 @@
 			children = (
 				68A4A2471C102E170046290A /* KTCoreData.h */,
 				68A4A2481C102E170046290A /* KTCoreData.m */,
+				6824FE5A1C1E5CED0073C727 /* KTCoreData.xcdatamodeld */,
 			);
 			path = KTCoreData;
 			sourceTree = "<group>";
@@ -184,7 +187,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6822A11E1C0E862B0002611F /* Build configuration list for PBXProject "ktstoragedemo" */;
+			buildConfigurationList = 6822A11E1C0E862B0002611F /* Build configuration list for PBXProject "KTStorageDemo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -227,6 +230,7 @@
 				6822A12B1C0E862B0002611F /* AppDelegate.m in Sources */,
 				6822A1511C0ECD0C0002611F /* Person.m in Sources */,
 				6822A1281C0E862B0002611F /* main.m in Sources */,
+				6824FE5C1C1E5CED0073C727 /* KTCoreData.xcdatamodeld in Sources */,
 				6822A1481C0E98F90002611F /* KTPlist.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,7 +364,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6822A11E1C0E862B0002611F /* Build configuration list for PBXProject "ktstoragedemo" */ = {
+		6822A11E1C0E862B0002611F /* Build configuration list for PBXProject "KTStorageDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6822A1381C0E862B0002611F /* Debug */,
@@ -379,6 +383,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6824FE5A1C1E5CED0073C727 /* KTCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6824FE5B1C1E5CED0073C727 /* KTCoreData.xcdatamodel */,
+			);
+			currentVersion = 6824FE5B1C1E5CED0073C727 /* KTCoreData.xcdatamodel */;
+			path = KTCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6822A11B1C0E862B0002611F /* Project object */;
 }

@@ -7,7 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 @interface KTCoreData : NSObject
+
+@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
+@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+- (instancetype)initWithModelName:(NSString *)modelName;
+
+- (void)saveContext;
+
+- (NSManagedObject *)getManagedObjectWithEntityName:(NSString *)entityName;
 
 @end
