@@ -9,7 +9,6 @@
 
 #import "ViewController.h"
 #import "KTStorage.h"
-#import "KTCoreData.h"
 #import "Person.h"
 @interface ViewController ()
 
