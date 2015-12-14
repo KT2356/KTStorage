@@ -19,6 +19,8 @@
 		6822A1571C0ED2860002611F /* KTSQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822A1561C0ED2860002611F /* KTSQLite.m */; };
 		6822A1591C0EDDA10002611F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6822A1581C0EDDA10002611F /* libsqlite3.tbd */; };
 		6824FE5C1C1E5CED0073C727 /* KTCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6824FE5A1C1E5CED0073C727 /* KTCoreData.xcdatamodeld */; };
+		6824FE611C1E8E270073C727 /* CorePerson+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6824FE5E1C1E8E270073C727 /* CorePerson+CoreDataProperties.m */; };
+		6824FE621C1E8E270073C727 /* CorePerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 6824FE601C1E8E270073C727 /* CorePerson.m */; };
 		68A4A2491C102E170046290A /* KTCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A4A2481C102E170046290A /* KTCoreData.m */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +46,10 @@
 		6822A1561C0ED2860002611F /* KTSQLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSQLite.m; sourceTree = "<group>"; };
 		6822A1581C0EDDA10002611F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		6824FE5B1C1E5CED0073C727 /* KTCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KTCoreData.xcdatamodel; sourceTree = "<group>"; };
+		6824FE5D1C1E8E270073C727 /* CorePerson+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePerson+CoreDataProperties.h"; sourceTree = "<group>"; };
+		6824FE5E1C1E8E270073C727 /* CorePerson+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CorePerson+CoreDataProperties.m"; sourceTree = "<group>"; };
+		6824FE5F1C1E8E270073C727 /* CorePerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePerson.h; sourceTree = "<group>"; };
+		6824FE601C1E8E270073C727 /* CorePerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorePerson.m; sourceTree = "<group>"; };
 		68A4A2471C102E170046290A /* KTCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTCoreData.h; sourceTree = "<group>"; };
 		68A4A2481C102E170046290A /* KTCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTCoreData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +113,10 @@
 		6822A13D1C0E86370002611F /* KTCoreData */ = {
 			isa = PBXGroup;
 			children = (
+				6824FE5D1C1E8E270073C727 /* CorePerson+CoreDataProperties.h */,
+				6824FE5E1C1E8E270073C727 /* CorePerson+CoreDataProperties.m */,
+				6824FE5F1C1E8E270073C727 /* CorePerson.h */,
+				6824FE601C1E8E270073C727 /* CorePerson.m */,
 				68A4A2471C102E170046290A /* KTCoreData.h */,
 				68A4A2481C102E170046290A /* KTCoreData.m */,
 				6824FE5A1C1E5CED0073C727 /* KTCoreData.xcdatamodeld */,
@@ -187,7 +197,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6822A11E1C0E862B0002611F /* Build configuration list for PBXProject "KTStorageDemo" */;
+			buildConfigurationList = 6822A11E1C0E862B0002611F /* Build configuration list for PBXProject "ktstoragedemo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -228,8 +238,10 @@
 				6822A1571C0ED2860002611F /* KTSQLite.m in Sources */,
 				6822A1541C0ECD200002611F /* KTUserDefault.m in Sources */,
 				6822A12B1C0E862B0002611F /* AppDelegate.m in Sources */,
+				6824FE621C1E8E270073C727 /* CorePerson.m in Sources */,
 				6822A1511C0ECD0C0002611F /* Person.m in Sources */,
 				6822A1281C0E862B0002611F /* main.m in Sources */,
+				6824FE611C1E8E270073C727 /* CorePerson+CoreDataProperties.m in Sources */,
 				6824FE5C1C1E5CED0073C727 /* KTCoreData.xcdatamodeld in Sources */,
 				6822A1481C0E98F90002611F /* KTPlist.m in Sources */,
 			);
@@ -364,7 +376,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6822A11E1C0E862B0002611F /* Build configuration list for PBXProject "KTStorageDemo" */ = {
+		6822A11E1C0E862B0002611F /* Build configuration list for PBXProject "ktstoragedemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6822A1381C0E862B0002611F /* Debug */,

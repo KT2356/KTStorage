@@ -20,5 +20,7 @@
 - (void)saveContext;
 
 - (NSManagedObject *)getManagedObjectWithEntityName:(NSString *)entityName;
+- (NSArray *)searchWithEntityName:(NSString *)entityName withSQLString:(NSString *)SQLString;
+- (void)deleteEntity:(NSManagedObject *)object;
 
 @end

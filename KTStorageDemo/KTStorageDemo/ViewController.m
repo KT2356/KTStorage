@@ -19,7 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     //[self plistStorage];
     //[self userDefaultStorage];
     //[self SQLite];
@@ -28,18 +27,25 @@
 
 #pragma mark - Core Data
 - (void)CoreData {
+    //add
     KTCoreData *ktCoreData = [[KTCoreData alloc] initWithModelName:@"KTCoreData"];
+    NSManagedObject *person = [ktCoreData getManagedObjectWithEntityName:@"CorePerson"];
+    [person setValue:@"kt232" forKey:@"name"];
+    //[ktCoreData saveContext];
     
-    NSManagedObject *test = [ktCoreData getManagedObjectWithEntityName:@"CorePerson"];
-    [test setValue:@"kt111" forKey:@"name"];
-    
-    
-    NSError *error = nil;
-    BOOL success = [ktCoreData.managedObjectContext save:&error];
-    if (!success) {
-        [NSException raise:@"访问数据库错误" format:@"%@", [error localizedDescription]];
+    //search
+    NSArray *result = @[];
+    result = [ktCoreData searchWithEntityName:@"CorePerson" withSQLString:[NSString stringWithFormat:@"name CONTAINS 'kt'"]];
+    NSLog(@"search result %@",result);
+    for (NSManagedObject *model in result) {
+        //modify
+        [model setValue:@"kidd" forKey:@"name"];
+        //[ktCoreData saveContext];
+        
+        //delete
+        [ktCoreData deleteEntity:model];
     }
-    
+    //[ktCoreData saveContext];
 }
 
 #pragma mark - SQLite

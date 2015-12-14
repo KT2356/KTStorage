@@ -73,16 +73,14 @@
     return _managedObjectContext;
 }
 
-
-//    NSManagedObject *test = [NSEntityDescription insertNewObjectForEntityForName:@"CorePerson" inManagedObjectContext:ktCoreData.managedObjectContext];
-// 设置Person的简单属性
-
 - (NSManagedObject *)getManagedObjectWithEntityName:(NSString *)entityName {
     NSManagedObject *model = [NSEntityDescription insertNewObjectForEntityForName:@"CorePerson" inManagedObjectContext:self.managedObjectContext];
     return model;
 }
 
-#pragma mark - Core Data Saving support
+
+
+#pragma mark -  增
 - (void)saveContext {
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
@@ -92,5 +90,33 @@
             abort();
         }
     }
+}
+#pragma mark - 删
+- (void)deleteEntity:(NSManagedObject *)object {
+    [self.managedObjectContext deleteObject:object];
+    // 将结果同步到数据库
+    NSError *error = nil;
+    [self.managedObjectContext save:&error];
+    if (error) {
+        [NSException raise:@"删除错误" format:@"%@", [error localizedDescription]];
+    }
+}
+
+
+
+#pragma mark - 查
+- (NSArray *)searchWithEntityName:(NSString *)entityName withSQLString:(NSString *)SQLString {
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    request.entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:SQLString];
+    request.predicate = predicate;
+    // 执行请求
+    NSError *error = nil;
+    NSArray *objs = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (error) {
+        [NSException raise:@"查询错误" format:@"%@", [error localizedDescription]];
+    }
+    return objs;
 }
 @end
